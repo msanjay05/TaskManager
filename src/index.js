@@ -1,15 +1,6 @@
-const express = require("express");
-require("./db/mongoose");
-const userRouter=require("./router/userRouter")
-const taskRouter=require("./router/taskRouter")
+const app=require('./app')
 
-
-const app = express();
 const port = process.env.PORT;
-
-app.use(express.json());
-app.use(userRouter);
-app.use(taskRouter);
 
 
 

@@ -27,7 +27,7 @@ router.post("/users", async (req, res) => {
   let user = new User(req.body);
   try {
     await user.save();
-    sendWelcomeEmail(user.email,user.name);
+    // sendWelcomeEmail(user.phone,user.name);
     const token = await user.generateAuthToken();
     res.status(201).send({ user, token });
   } catch (error) {
@@ -64,13 +64,13 @@ router.post('/users/logoutall',auth, async(req,res)=>{
 router.post("/users/login", async (req, res) => {
   try {
     const user = await User.findByCredentials(
-      req.body.email,
+      req.body.phoneNo,
       req.body.password
     );
     const token = await user.generateAuthToken();
     res.send({ user, token });
   } catch (e) {
-    res.status(400).send({error:'password or email is wrong'});
+    res.status(400).send({error:'password or phoneNo is wrong'});
   }
 });
 
@@ -84,7 +84,7 @@ router.get("/user/me",auth, async (req, res) => {
 // update user
 router.patch("/users/me", auth,async (req, res) => {
   const updates = Object.keys(req.body);
-  const allowedUpdates = ["name", "email", "age", "password"];
+  const allowedUpdates = ["name", "phoneNo", "age", "password"];
   const isAllowed = updates.every((update) => {
     return allowedUpdates.includes(update);
   });
@@ -109,7 +109,7 @@ router.patch("/users/me", auth,async (req, res) => {
 router.delete("/users/me",auth, async (req, res) => {
   try {
     await req.user.remove();
-    sendAccountDeleteEmail(req.user.email,req.user.name)
+    // sendAccountDeleteEmail(req.user.email,req.user.name)
     res.send(req.user);
   } catch (e) {
     res.status(500).send(e);
