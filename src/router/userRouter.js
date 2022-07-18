@@ -6,21 +6,6 @@ const sharp=require('sharp')
 const {sendWelcomeEmail, sendAccountDeleteEmail}=require('../emails/account');
 const router = new express.Router();
 
-// router.post("/users", async (req, res) => {
-//   const user = new User(req.body);
-//   try {
-//     await user.save();
-//     res.status(201).send(user);
-//   } catch (e) {
-//     res.status(400).send(e);
-//   }
-//   // user.save().then(()=>{
-//   //     res.status(201).send(user)
-//   // }).catch((e)=>{
-//   //     res.status(400).send(e);
-//   // });
-// });
-
 
 // create user or signup
 router.post("/users", async (req, res) => {
